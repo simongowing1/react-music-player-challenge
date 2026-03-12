@@ -1,35 +1,9 @@
-import React, { createContext, useContext, useState } from 'react';
-import {
-    BarSongTitle,
-    BottomBar,
-    Button,
-    PlayList,
-    Song,
-    SongTitle,
-} from './styles.js';
-import { songList } from './constants.js';
+import { usePlayerContext } from '../hooks/usePlayerContext';
+import { BottomBar, BarSongTitle, Button } from '../styles';
+import { buttonLabels } from '../constants/buttonLabels';
+import { songList } from './SongsList';
 
-const buttonLabels = ['Not replaying', 'Replaying all', 'Replaying one'];
-
-const PlayerContext = createContext(null);
-
-const PlayerProvider = ({ children }) => {
-    const [currentSong, setCurrentSong] = useState(null);
-    const [currentMode, setCurrentMode] = useState(buttonLabels[0]);
-    return (
-        <PlayerContext.Provider value={{ currentSong, setCurrentSong, currentMode, setCurrentMode }}>
-            {children}
-        </PlayerContext.Provider>
-    )
-};
-
-const usePlayerContext = () => {
-    const context = useContext(PlayerContext);
-    if (!context) throw new Error('usePlayerContext must be used within a PlayerProvider');
-    return context;
-};
-
-const ControlBar = () => {
+export function ControlBar() {
     const { currentSong, setCurrentSong, currentMode, setCurrentMode } = usePlayerContext();
     const barTitle = currentSong ? `${currentSong.author} - ${currentSong.title}` : ''
 
@@ -87,22 +61,3 @@ const ControlBar = () => {
         </BottomBar>
     );
 };
-
-const Songs = () => {
-    const { currentSong, setCurrentSong } = usePlayerContext();
-
-    return (
-        <PlayList>
-            {songList.map(({ title, author, id }) => (
-                <Song key={id} onClick={() => setCurrentSong({ id, title, author })}>
-                    <SongTitle data-testid={id} active={currentSong?.id === id}>
-                        {title}
-                    </SongTitle>
-                    <p>{author}</p>
-                </Song>
-            ))}
-        </PlayList>
-    );
-};
-
-export { PlayerProvider, Songs, ControlBar };

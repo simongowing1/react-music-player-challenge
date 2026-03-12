@@ -1,0 +1,1 @@
+export const buttonLabels = ['Not replaying', 'Replaying all', 'Replaying one'];
