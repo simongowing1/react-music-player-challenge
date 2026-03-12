@@ -1,7 +1,7 @@
 import { usePlayerContext } from '../hooks/usePlayerContext';
 import { BottomBar, BarSongTitle, Button } from '../styles';
 import { buttonLabels } from '../constants/buttonLabels';
-import { songList } from './SongsList';
+import { songList } from '../constants/songList';
 
 export function ControlBar() {
     const { currentSong, setCurrentSong, currentMode, setCurrentMode } = usePlayerContext();

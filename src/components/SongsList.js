@@ -1,6 +1,6 @@
 import { usePlayerContext } from '../hooks/usePlayerContext';
 import { PlayList, Song, SongTitle } from '../styles';
-import { songList } from './SongsList';
+import { songList } from '../constants/songList';
 
 export function SongsList() {
     const { currentSong, setCurrentSong } = usePlayerContext();
